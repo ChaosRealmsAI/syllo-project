@@ -1,0 +1,71 @@
+/* =========================================
+   THEME: BRUTALIST (Neo-Brutalism)
+   ========================================= */
+
+[data-theme="brutalist"] {
+  /* Colors - Background */
+  --bg-body: #FFDEE9;
+  --bg-card: #FFFFFF;
+  --bg-element: #FFFF00;
+  --bg-element-hover: #00FF00;
+  --bg-accent: #000000;
+
+  /* Colors - Text */
+  --text-main: #000000;
+  --text-muted: #000000;
+  --text-on-accent: #FFFFFF;
+
+  /* Border */
+  --border-color: #000000;
+  --border-width: 3px;
+
+  /* Radius */
+  --radius-lg: 0px;
+  --radius-md: 0px;
+  --radius-sm: 0px;
+
+  /* Shadow */
+  --shadow-card: 6px 6px 0px #000000;
+  --shadow-hover: 2px 2px 0px #000000;
+  --shadow-focus: 4px 4px 0px #000000;
+
+  /* Typography */
+  --font-main: "Courier New", Courier, monospace;
+  --font-mono: "Courier New", Courier, monospace;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+
+  /* Transition */
+  --transition-fast: 0.1s ease;
+  --transition-base: 0.15s ease;
+  --transition-slow: 0.3s ease;
+
+  /* Z-Index */
+  --z-dropdown: 100;
+  --z-modal: 200;
+  --z-toast: 300;
+}
+
+/* Brutalist dot pattern */
+[data-theme="brutalist"] body {
+  background-image: radial-gradient(#000 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Brutalist hover effects */
+[data-theme="brutalist"] .brutalist-press:active {
+  transform: translate(2px, 2px);
+  box-shadow: var(--shadow-hover);
+}

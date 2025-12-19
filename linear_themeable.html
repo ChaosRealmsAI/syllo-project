@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Linear Themeable (Best Practice)</title>
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- 1. 定义 CSS 变量 (Theming Layer) -->
+    <style>
+        :root {
+            /* 默认 Dark Theme (Linear Dark) */
+            --bg-background: #0e1015;
+            --bg-surface: #16191f;
+            --bg-surface-hover: #1e2229;
+            --border-color: #22262e;
+            --sidebar-bg: #12141a;
+            
+            --text-main: #f7f8f8;
+            --text-muted: #8a8f98;
+            --text-dim: #575b66;
+
+            --primary: #5e6ad2;
+            --primary-hover: #6f7bf7;
+            --primary-text: #ffffff;
+        }
+
+        /* Light Theme (Linear Light) */
+        [data-theme="light"] {
+            --bg-background: #ffffff;
+            --bg-surface: #f4f5f8;
+            --bg-surface-hover: #ebecf0;
+            --border-color: #e4e4e7; /* lighter border */
+            --sidebar-bg: #f9fafb;
+
+            --text-main: #18181b;
+            --text-muted: #5e6065;
+            --text-dim: #8d9199;
+
+            --primary: #5e6ad2;       /* 保持品牌色一致，或者微调 */
+            --primary-hover: #4b55be;
+            --primary-text: #ffffff;
+        }
+
+        /* 基础样式 */
+        body { transition: background-color 0.3s, color 0.3s; }
+        .glass-panel {
+            background: var(--bg-surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+        }
+    </style>
+
+    <!-- 2. 配置 Tailwind 使用变量 (Utility Layer) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    colors: {
+                        // 关键：这里不写死 Hex，而是引用 CSS 变量
+                        background: 'var(--bg-background)',
+                        surface: 'var(--bg-surface)',
+                        'surface-hover': 'var(--bg-surface-hover)',
+                        border: 'var(--border-color)',
+                        sidebar: 'var(--sidebar-bg)',
+                        
+                        text: {
+                            main: 'var(--text-main)',
+                            muted: 'var(--text-muted)',
+                            dim: 'var(--text-dim)'
+                        },
+                        
+                        primary: {
+                            DEFAULT: 'var(--primary)',
+                            hover: 'var(--primary-hover)',
+                            text: 'var(--primary-text)'
+                        }
+                    },
+                    boxShadow: {
+                        'glow': '0 0 20px rgba(94, 106, 210, 0.15)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-background text-text-main font-sans antialiased h-screen overflow-hidden flex selection:bg-primary selection:text-primary-text" x-data="app()">
+
+    <!-- Sidebar -->
+    <aside class="w-[240px] bg-sidebar border-r border-border flex flex-col flex-shrink-0 transition-colors duration-300">
+        <div class="h-12 flex items-center px-4 border-b border-border hover:bg-surface-hover cursor-pointer transition-colors group">
+            <div class="flex items-center gap-2 text-sm font-medium text-text-main">
+                <div class="w-5 h-5 rounded bg-primary text-primary-text flex items-center justify-center text-[10px] shadow-glow">A</div>
+                <span class="truncate">Acme Corp</span>
+            </div>
+            <i class="ph ph-caret-down ml-auto text-text-muted group-hover:text-text-main text-xs"></i>
+        </div>
+
+        <div class="flex-1 overflow-y-auto py-3 px-2 space-y-6">
+            <div class="space-y-0.5">
+                <template x-for="item in navItems" :key="item.label">
+                    <a href="#" class="flex items-center gap-2.5 px-2 py-1.5 rounded-md text-sm text-text-muted hover:text-text-main hover:bg-surface-hover transition-all group">
+                        <i :class="item.icon" class="text-lg"></i>
+                        <span x-text="item.label"></span>
+                    </a>
+                </template>
+            </div>
+        </div>
+
+        <!-- Theme Toggle Button (New!) -->
+        <div class="p-3 border-t border-border">
+            <button @click="toggleTheme" class="flex items-center gap-2 text-sm text-text-muted hover:text-text-main w-full px-2 py-1.5 rounded-md hover:bg-surface-hover transition-all">
+                <i class="ph" :class="theme === 'dark' ? 'ph-moon' : 'ph-sun'"></i>
+                <span x-text="theme === 'dark' ? 'Dark Mode' : 'Light Mode'"></span>
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full bg-background relative transition-colors duration-300">
+        <header class="h-12 border-b border-border flex items-center justify-between px-6 bg-background/95 backdrop-blur z-10">
+            <div class="flex items-center gap-2 text-sm text-text-muted">
+                <span class="text-text-main font-medium">All Issues</span>
+            </div>
+            <button class="bg-primary/10 hover:bg-primary/20 text-primary hover:text-primary-hover px-3 py-1.5 rounded text-xs font-medium border border-primary/20 transition-all">
+                New Issue
+            </button>
+        </header>
+
+        <div class="flex-1 overflow-y-auto p-6 scroll-smooth">
+            <!-- Example Group -->
+            <div class="mb-8">
+                <h3 class="flex items-center gap-2 text-sm font-medium text-text-muted mb-3">
+                    <i class="ph ph-circle text-yellow-500"></i> Todo 
+                </h3>
+                
+                <div class="space-y-px bg-border rounded-lg overflow-hidden border border-border">
+                    <div class="bg-background hover:bg-surface-hover group flex items-center gap-4 px-4 py-3 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-3 min-w-0 flex-1">
+                            <div class="text-text-dim font-mono text-xs w-12 flex-shrink-0">ENG-123</div>
+                            <div class="text-text-muted group-hover:text-text-main text-sm font-medium transition-colors">Refactor CSS to use Variables</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="px-1.5 py-0.5 rounded border border-border text-[10px] text-text-dim uppercase">Tech Debt</span>
+                        </div>
+                    </div>
+                    <div class="bg-background hover:bg-surface-hover group flex items-center gap-4 px-4 py-3 cursor-pointer transition-colors">
+                        <div class="flex items-center gap-3 min-w-0 flex-1">
+                            <div class="text-text-dim font-mono text-xs w-12 flex-shrink-0">ENG-124</div>
+                            <div class="text-text-muted group-hover:text-text-main text-sm font-medium transition-colors">Implement Light Mode</div>
+                        </div>
+                         <div class="flex items-center gap-4">
+                            <span class="px-1.5 py-0.5 rounded border border-border text-[10px] text-text-dim uppercase">Feature</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function app() {
+            return {
+                theme: 'dark',
+                navItems: [
+                    { label: 'Inbox', icon: 'ph ph-tray' },
+                    { label: 'My Issues', icon: 'ph ph-list-checks' },
+                ],
+                toggleTheme() {
+                    this.theme = this.theme === 'dark' ? 'light' : 'dark';
+                    document.documentElement.setAttribute('data-theme', this.theme);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

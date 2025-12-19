@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="minimal">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Block Components - Theme Showcase</title>
+    <style>
+        /* =========================================
+           1. CSS VARIABLES & THEMES
+           ========================================= */
+        :root {
+            /* Base Reset */
+            --transition: 0.3s ease;
+        }
+
+        /* --- THEME: MINIMAL LIGHT (Linear-esque) --- */
+        [data-theme="minimal"] {
+            --bg-body: #F9FAFB;
+            --bg-card: #FFFFFF;
+            --bg-element: #F4F5F8;
+            --bg-element-hover: #EBECF0;
+            --bg-accent: #5E6AD2;
+            
+            --text-main: #18181B;
+            --text-muted: #71717A;
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: #E4E4E7;
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 8px;
+            --radius-md: 6px;
+            --radius-sm: 4px;
+            
+            --shadow-card: 0 1px 3px rgba(0,0,0,0.05);
+            --shadow-hover: 0 4px 12px rgba(0,0,0,0.08);
+            
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            --font-mono: "SF Mono", "Monaco", "Inconsolata", "Fira Mono", monospace;
+            
+            --pattern: none;
+        }
+
+        /* --- THEME: GLASSMORPHISM DARK (Apple/Arc) --- */
+        [data-theme="glass"] {
+            --bg-body: #000000;
+            --bg-card: rgba(30, 30, 40, 0.65);
+            --bg-element: rgba(255, 255, 255, 0.08);
+            --bg-element-hover: rgba(255, 255, 255, 0.15);
+            --bg-accent: rgba(60, 130, 246, 0.8);
+            
+            --text-main: #FFFFFF;
+            --text-muted: rgba(255, 255, 255, 0.6);
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: rgba(255, 255, 255, 0.12);
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 20px;
+            --radius-md: 12px;
+            --radius-sm: 8px;
+            
+            --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            --shadow-hover: 0 8px 32px 0 rgba(0, 0, 0, 0.5), inset 0 0 0 1px rgba(255,255,255,0.1);
+            
+            --font-main: -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: monospace;
+            
+            /* Gradient Background for Glass effect */
+            --pattern: radial-gradient(circle at 10% 20%, rgba(90, 34, 139, 0.4) 0%, transparent 40%),
+                       radial-gradient(circle at 90% 80%, rgba(0, 100, 200, 0.4) 0%, transparent 40%);
+            
+            --backdrop-filter: blur(20px) saturate(180%);
+        }
+
+        /* --- THEME: BRUTALIST (Neo-Brutalism) --- */
+        [data-theme="brutalist"] {
+            --bg-body: #FFDEE9; /* Soft pink contrast */
+            --bg-card: #FFFFFF;
+            --bg-element: #FFFF00; /* Brutal yellow */
+            --bg-element-hover: #00FF00; /* Brutal green */
+            --bg-accent: #000000;
+            
+            --text-main: #000000;
+            --text-muted: #000000;
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: #000000;
+            --border-width: 3px;
+            --border-style: solid;
+            
+            --radius-lg: 0px;
+            --radius-md: 0px;
+            --radius-sm: 0px;
+            
+            --shadow-card: 6px 6px 0px #000000;
+            --shadow-hover: 2px 2px 0px #000000; /* Press effect */
+            
+            --font-main: "Courier New", Courier, monospace;
+            --font-mono: "Courier New", Courier, monospace;
+            
+            --pattern: radial-gradient(#000 1px, transparent 1px);
+            --pattern-size: 20px 20px;
+        }
+
+        /* --- THEME: PLAYFUL (Retro/Chunky) --- */
+        [data-theme="playful"] {
+            --bg-body: #FFFAF0; /* Floral White */
+            --bg-card: #FFF5E1;
+            --bg-element: #FFDAB9; /* Peach Puff */
+            --bg-element-hover: #FFA07A; /* Light Salmon */
+            --bg-accent: #FF6B6B; /* Pastel Red */
+            
+            --text-main: #4A4A4A;
+            --text-muted: #8B7D6B;
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: #4A4A4A;
+            --border-width: 2px;
+            --border-style: dashed;
+            
+            --radius-lg: 25px;
+            --radius-md: 15px;
+            --radius-sm: 10px;
+            
+            --shadow-card: 4px 4px 0px #FFD700;
+            --shadow-hover: 6px 6px 0px #FF8C00;
+            
+            --font-main: "Comic Sans MS", "Chalkboard SE", sans-serif;
+            --font-mono: "Courier New", monospace;
+            
+            --pattern: repeating-linear-gradient(45deg, #FFDAB9 0, #FFDAB9 2px, transparent 0, transparent 50%);
+            --pattern-size: 20px 20px;
+        }
+
+        /* --- THEME: HIGH CONTRAST (Accessibility) --- */
+        [data-theme="high-contrast"] {
+            --bg-body: #FFFFFF;
+            --bg-card: #FFFFFF;
+            --bg-element: #000000;
+            --bg-element-hover: #333333;
+            --bg-accent: #0000FF; /* Pure Blue */
+            
+            --text-main: #000000;
+            --text-muted: #000000;
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: #000000;
+            --border-width: 4px;
+            --border-style: solid;
+            
+            --radius-lg: 0px;
+            --radius-md: 0px;
+            --radius-sm: 0px;
+            
+            --shadow-card: none;
+            --shadow-hover: 0 0 0 4px #000000;
+            
+            --font-main: Verdana, sans-serif;
+            --font-mono: monospace;
+            
+            --pattern: none;
+        }
+
+        /* --- THEME: TERMINAL (Hacker) --- */
+        [data-theme="terminal"] {
+            --bg-body: #0C0C0C;
+            --bg-card: #141414;
+            --bg-element: #1F1F1F;
+            --bg-element-hover: #2D2D2D;
+            --bg-accent: #00FF00; /* Matrix Green */
+            
+            --text-main: #00FF00;
+            --text-muted: #008F11;
+            --text-on-accent: #000000;
+            
+            --border-color: #00FF00;
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 0px;
+            --radius-md: 0px;
+            --radius-sm: 0px;
+            
+            --shadow-card: 0 0 10px rgba(0, 255, 0, 0.2);
+            --shadow-hover: 0 0 15px rgba(0, 255, 0, 0.4);
+            
+            --font-main: "Courier New", Courier, monospace;
+            --font-mono: "Courier New", Courier, monospace;
+            
+            --pattern: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            --pattern-size: 100% 2px, 3px 100%;
+        }
+
+        /* --- THEME: SYNTHWAVE (Retro Futurism) --- */
+        [data-theme="synthwave"] {
+            --bg-body: #241b2f;
+            --bg-card: #262335;
+            --bg-element: #3e3553;
+            --bg-element-hover: #4e4468;
+            --bg-accent: #ff00ff; /* Magenta */
+            
+            --text-main: #b8e9ff;
+            --text-muted: #8b7fa3;
+            --text-on-accent: #ffffff;
+            
+            --border-color: #00f3ff; /* Cyan Border */
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --radius-sm: 4px;
+            
+            --shadow-card: 0 0 10px rgba(0, 243, 255, 0.2), 0 0 20px rgba(255, 0, 255, 0.1);
+            --shadow-hover: 0 0 15px rgba(0, 243, 255, 0.4);
+            
+            --font-main: "Orbitron", "Roboto", sans-serif;
+            --font-mono: "Source Code Pro", monospace;
+            
+            /* Grid Pattern */
+            --pattern: linear-gradient(transparent 95%, rgba(255,0,255,0.1) 95%),
+                       linear-gradient(90deg, transparent 95%, rgba(0,243,255,0.1) 95%);
+            --pattern-size: 30px 30px;
+        }
+
+        /* --- THEME: NEWSPAPER (Editorial/Serif) --- */
+        [data-theme="newspaper"] {
+            --bg-body: #F4F1EA; /* Newsprint paper */
+            --bg-card: #F9F7F1;
+            --bg-element: #EAE6DB;
+            --bg-element-hover: #DCD6C6;
+            --bg-accent: #8B0000; /* Dark Red Ink */
+            
+            --text-main: #2A2A2A;
+            --text-muted: #595959;
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: #2A2A2A;
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 2px;
+            --radius-md: 2px;
+            --radius-sm: 2px;
+            
+            --shadow-card: 4px 4px 0 rgba(0,0,0,0.1);
+            --shadow-hover: 4px 4px 0 rgba(139, 0, 0, 0.2);
+            
+            --font-main: "Georgia", "Times New Roman", serif;
+            --font-mono: "Courier New", monospace;
+            
+            --pattern: none;
+        }
+
+        /* --- THEME: NORDIC (Frost/Clean) --- */
+        [data-theme="nordic"] {
+            --bg-body: #ECEFF4; /* Nord Snow Storm */
+            --bg-card: #FFFFFF;
+            --bg-element: #E5E9F0;
+            --bg-element-hover: #D8DEE9;
+            --bg-accent: #88C0D0; /* Nord Frost */
+            
+            --text-main: #2E3440; /* Nord Polar Night */
+            --text-muted: #4C566A;
+            --text-on-accent: #2E3440;
+            
+            --border-color: #D8DEE9;
+            --border-width: 0px;
+            --border-style: solid;
+            
+            --radius-lg: 16px;
+            --radius-md: 10px;
+            --radius-sm: 6px;
+            
+            --shadow-card: 0 10px 15px -3px rgba(46, 52, 64, 0.05);
+            --shadow-hover: 0 20px 25px -5px rgba(46, 52, 64, 0.1);
+            
+            --font-main: "Quicksand", "Segoe UI", sans-serif;
+            --font-mono: monospace;
+            
+            --pattern: none;
+        }
+
+        /* =========================================
+           2. GLOBAL STYLES
+           ========================================= */
+        * { box-sizing: border-box; }
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-body);
+            background-image: var(--pattern);
+            background-size: var(--pattern-size, cover);
+            background-attachment: fixed;
+            color: var(--text-main);
+            font-family: var(--font-main);
+            line-height: 1.5;
+            transition: background 0.5s ease, color 0.5s ease;
+            min-height: 100vh;
+        }
+
+        /* --- Header & Switcher --- */
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            background: var(--bg-body);
+            border-bottom: var(--border-width) var(--border-style) var(--border-color);
+            transition: var(--transition);
+        }
+        
+        /* Glass theme specific header fix */
+        [data-theme="glass"] header {
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+        }
+
+        button.theme-btn {
+            padding: 0.5rem 1rem;
+            border: var(--border-width) var(--border-style) var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-main);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-family: var(--font-main);
+            font-weight: 600;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.1s, box-shadow 0.1s;
+        }
+
+        button.theme-btn:hover {
+            transform: translateY(-1px);
+        }
+
+        button.theme-btn:active {
+            transform: translateY(1px);
+            box-shadow: none;
+        }
+        
+        button.theme-btn.active {
+            background: var(--bg-accent);
+            color: var(--text-on-accent);
+            border-color: var(--bg-accent);
+        }
+        [data-theme="brutalist"] button.theme-btn.active {
+            background: #000;
+            color: #fff;
+            box-shadow: 2px 2px 0 #fff;
+        }
+
+        /* --- Layout --- */
+        main {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+            display: grid;
+            gap: 3rem;
+        }
+
+        section {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        h2.section-title {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            margin: 0;
+            font-weight: 600;
+        }
+        [data-theme="brutalist"] h2.section-title {
+            background: #000;
+            color: #fff;
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            width: fit-content;
+        }
+
+        /* --- Generic Component Card --- */
+        .block-card {
+            background: var(--bg-card);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-card);
+            padding: 1.5rem;
+            backdrop-filter: var(--backdrop-filter, none);
+            -webkit-backdrop-filter: var(--backdrop-filter, none);
+            transition: var(--transition);
+        }
+
+        /* =========================================
+           3. COMPONENTS
+           ========================================= */
+
+        /* --- Text Block --- */
+        .text-content h1 {
+            font-size: 2rem;
+            margin: 0 0 0.5rem 0;
+            font-weight: 700;
+        }
+        .text-content p {
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+        }
+        .text-content code {
+            background: var(--bg-element);
+            padding: 0.2rem 0.4rem;
+            border-radius: var(--radius-sm);
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+            border: var(--border-width) var(--border-style) var(--border-color);
+        }
+        .text-content blockquote {
+            margin: 1rem 0;
+            padding-left: 1rem;
+            border-left: 4px solid var(--bg-accent);
+            font-style: italic;
+            color: var(--text-main);
+        }
+
+        /* --- Task Block --- */
+        .task-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .task-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            transition: background 0.2s;
+            cursor: pointer;
+            border: 1px solid transparent;
+        }
+        .task-item:hover {
+            background: var(--bg-element);
+        }
+        [data-theme="brutalist"] .task-item:hover {
+            border: 3px solid #000;
+            background: #fff;
+        }
+
+        /* Checkbox Styling */
+        .checkbox {
+            width: 1.25rem;
+            height: 1.25rem;
+            border: var(--border-width) var(--border-style) var(--border-color); /* Theme based border */
+            border-radius: var(--radius-sm);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            margin-top: 2px;
+            background: var(--bg-card);
+        }
+        [data-theme="brutalist"] .checkbox { border-width: 2px; }
+
+        .checkbox.checked {
+            background: var(--bg-accent);
+            border-color: var(--bg-accent);
+        }
+        .checkbox.checked::after {
+            content: "✓";
+            color: var(--text-on-accent);
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .task-content { flex: 1; }
+        .task-title { font-weight: 500; display: block; }
+        .task-meta { display: flex; gap: 0.5rem; margin-top: 0.25rem; flex-wrap: wrap;}
+        
+        .badge {
+            font-size: 0.75rem;
+            padding: 0.15rem 0.4rem;
+            border-radius: var(--radius-sm);
+            background: var(--bg-element);
+            color: var(--text-muted);
+            border: 1px solid transparent;
+        }
+        [data-theme="brutalist"] .badge { border: 2px solid #000; font-weight: bold; background: #fff; color: #000; }
+
+        .badge.p0 { color: #ef4444; background: rgba(239,68,68,0.1); }
+        .badge.p1 { color: #eab308; background: rgba(234,179,8,0.1); }
+        [data-theme="brutalist"] .badge.p0 { background: #ff0000; color: white; border-color: #000; }
+        [data-theme="brutalist"] .badge.p1 { background: #ffff00; color: black; border-color: #000; }
+
+        /* --- Kanban Block --- */
+        .kanban-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            overflow-x: auto;
+        }
+        @media (max-width: 768px) {
+            .kanban-board { grid-template-columns: 1fr; }
+        }
+
+        .kanban-col {
+            background: var(--bg-element);
+            padding: 0.75rem;
+            border-radius: var(--radius-md);
+            border: var(--border-width) var(--border-style) transparent;
+        }
+        [data-theme="brutalist"] .kanban-col { 
+            background: transparent; 
+            border: 3px solid #000;
+        }
+
+        .col-header {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.75rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        [data-theme="brutalist"] .col-header { color: #000; text-transform: uppercase; }
+
+        .kanban-card {
+            background: var(--bg-card);
+            padding: 0.75rem;
+            border-radius: var(--radius-sm);
+            box-shadow: var(--shadow-card);
+            margin-bottom: 0.5rem;
+            border: var(--border-width) var(--border-style) var(--border-color); /* For glass theme definition */
+        }
+        [data-theme="glass"] .kanban-card { background: rgba(255,255,255,0.05); }
+        [data-theme="brutalist"] .kanban-card { border: 2px solid #000; box-shadow: 3px 3px 0 #000; }
+
+        .k-tag {
+            display: inline-block;
+            width: 2rem;
+            height: 4px;
+            border-radius: 2px;
+            background: #ccc;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- Table Block --- */
+        .table-wrapper {
+            overflow-x: auto;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+            text-align: left;
+        }
+        
+        th {
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            border-bottom: var(--border-width) var(--border-style) var(--border-color);
+        }
+        [data-theme="brutalist"] th { color: #000; text-transform: uppercase; border-bottom-width: 3px; }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--text-main);
+        }
+        [data-theme="brutalist"] td { border-bottom-width: 2px; }
+        
+        tr:last-child td { border-bottom: none; }
+        
+        tr:hover td {
+            background-color: var(--bg-element);
+        }
+        
+        .status-dot {
+            height: 8px;
+            width: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 6px;
+        }
+        [data-theme="brutalist"] .status-dot { border: 1px solid #000; border-radius: 0; }
+
+        /* --- Calendar Block --- */
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 2px;
+        }
+        
+        .cal-day-header {
+            text-align: center;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding-bottom: 0.5rem;
+        }
+        
+        .cal-day {
+            aspect-ratio: 1/1;
+            border-radius: var(--radius-sm);
+            padding: 4px;
+            font-size: 0.9rem;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            color: var(--text-muted);
+            transition: 0.2s;
+        }
+        .cal-day:hover {
+            background: var(--bg-element);
+            color: var(--text-main);
+        }
+        [data-theme="brutalist"] .cal-day { border: 1px solid #000; aspect-ratio: auto; min-height: 60px; align-items: flex-start; padding: 8px; }
+        [data-theme="brutalist"] .cal-day:hover { background: #ffff00; }
+
+        .cal-day.today {
+            font-weight: bold;
+            color: var(--text-main);
+            background: var(--bg-element);
+        }
+        
+        .event-dot {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--bg-accent);
+            margin-top: 4px;
+        }
+        [data-theme="brutalist"] .event-dot { width: 100%; height: 6px; border-radius: 0; border: 1px solid #000; }
+
+        .cal-empty { opacity: 0; pointer-events: none; }
+
+    </style>
+</head>
+<body>
+
+    <header style="flex-wrap: wrap;">
+        <button class="theme-btn active" onclick="setTheme('minimal')">Minimal</button>
+        <button class="theme-btn" onclick="setTheme('glass')">Glass</button>
+        <button class="theme-btn" onclick="setTheme('brutalist')">Brutalist</button>
+        <button class="theme-btn" onclick="setTheme('playful')">Playful</button>
+        <button class="theme-btn" onclick="setTheme('high-contrast')">Contrast</button>
+        <button class="theme-btn" onclick="setTheme('terminal')">Terminal</button>
+        <button class="theme-btn" onclick="setTheme('synthwave')">Synthwave</button>
+        <button class="theme-btn" onclick="setTheme('newspaper')">Newspaper</button>
+        <button class="theme-btn" onclick="setTheme('nordic')">Nordic</button>
+    </header>
+
+    <main>
+
+        <!-- 1. TEXT COMPONENT -->
+        <section id="text">
+            <h2 class="section-title">01. Content Block</h2>
+            <div class="block-card text-content">
+                <h1>Project Alpha</h1>
+                <p>An exploration into <code class="code">modular design</code> systems. This document outlines the core principles needed to build the next generation of our interface.</p>
+                <blockquote>
+                    "Simplicity is the ultimate sophistication." 
+                </blockquote>
+                <p>We need to focus on <strong>clarity</strong>, <strong>speed</strong>, and <strong>accessibility</strong> above all else.</p>
+            </div>
+        </section>
+
+        <!-- 2. TASK COMPONENT -->
+        <section id="task">
+            <h2 class="section-title">02. Task List</h2>
+            <div class="block-card">
+                <div class="task-list">
+                    <!-- Task 1 -->
+                    <div class="task-item">
+                        <div class="checkbox checked"></div>
+                        <div class="task-content">
+                            <span class="task-title" style="text-decoration: line-through; opacity: 0.5;">Complete product design doc</span>
+                        </div>
+                    </div>
+                    <!-- Task 2 -->
+                    <div class="task-item">
+                        <div class="checkbox"></div>
+                        <div class="task-content">
+                            <span class="task-title">API Interface Development</span>
+                            <div class="task-meta">
+                                <span class="badge p0">P0</span>
+                                <span class="badge">Due Tomorrow</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Task 3 -->
+                    <div class="task-item">
+                        <div class="checkbox"></div>
+                        <div class="task-content">
+                            <span class="task-title">User Testing Recruitment</span>
+                            <div class="task-meta">
+                                <span class="badge p1">P1</span>
+                                <span class="badge">Marketing</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Task 4 -->
+                    <div class="task-item">
+                        <div class="checkbox"></div>
+                        <div class="task-content">
+                            <span class="task-title">Prepare Weekly PPT</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. KANBAN COMPONENT -->
+        <section id="kanban">
+            <h2 class="section-title">03. Kanban Board</h2>
+            <div class="block-card">
+                <div class="kanban-board">
+                    <!-- Todo Column -->
+                    <div class="kanban-col">
+                        <div class="col-header">TODO <span>3</span></div>
+                        <div class="kanban-card">
+                            <div class="k-tag" style="background:#fbbf24"></div>
+                            <div style="font-size:0.9rem; font-weight:500;">Research competitors</div>
+                        </div>
+                        <div class="kanban-card">
+                            <div class="k-tag" style="background:#a78bfa"></div>
+                            <div style="font-size:0.9rem; font-weight:500;">Draft wireframes</div>
+                        </div>
+                        <div class="kanban-card">
+                            <div style="font-size:0.9rem; font-weight:500;">Buy domain</div>
+                        </div>
+                    </div>
+                    
+                    <!-- In Progress Column -->
+                    <div class="kanban-col">
+                        <div class="col-header">IN PROGRESS <span>2</span></div>
+                        <div class="kanban-card">
+                            <div class="k-tag" style="background:#34d399"></div>
+                            <div style="font-size:0.9rem; font-weight:500;">Frontend Setup</div>
+                            <div style="font-size:0.75rem; color:var(--text-muted); margin-top:4px;">#342</div>
+                        </div>
+                        <div class="kanban-card">
+                            <div style="font-size:0.9rem; font-weight:500;">Auth flow</div>
+                        </div>
+                    </div>
+
+                    <!-- Done Column -->
+                    <div class="kanban-col">
+                        <div class="col-header">DONE <span>1</span></div>
+                        <div class="kanban-card" style="opacity: 0.6;">
+                            <div style="font-size:0.9rem; font-weight:500; text-decoration: line-through;">Kickoff Meeting</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. TABLE COMPONENT -->
+        <section id="table">
+            <h2 class="section-title">04. Data Table</h2>
+            <div class="block-card" style="padding: 0; overflow: hidden;">
+                <div class="table-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th>Priority</th>
+                                <th>Owner</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Homepage Redesign</td>
+                                <td><span class="status-dot" style="background:#34d399"></span>Active</td>
+                                <td>Medium</td>
+                                <td>@sarah</td>
+                            </tr>
+                            <tr>
+                                <td>Q4 Roadmap</td>
+                                <td><span class="status-dot" style="background:#fbbf24"></span>Review</td>
+                                <td>High</td>
+                                <td>@mike</td>
+                            </tr>
+                            <tr>
+                                <td>Dark Mode Fix</td>
+                                <td><span class="status-dot" style="background:#f87171"></span>Blocked</td>
+                                <td>Critical</td>
+                                <td>@alex</td>
+                            </tr>
+                            <tr>
+                                <td>Analytics</td>
+                                <td><span class="status-dot" style="background:#9ca3af"></span>Draft</td>
+                                <td>Low</td>
+                                <td>@david</td>
+                            </tr>
+                            <tr>
+                                <td>Mobile Nav</td>
+                                <td><span class="status-dot" style="background:#34d399"></span>Active</td>
+                                <td>Medium</td>
+                                <td>@sarah</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. CALENDAR COMPONENT -->
+        <section id="calendar">
+            <h2 class="section-title">05. Calendar View</h2>
+            <div class="block-card">
+                <div style="margin-bottom: 1rem; font-weight: 600;">December 2025</div>
+                <div class="calendar-grid">
+                    <div class="cal-day-header">M</div>
+                    <div class="cal-day-header">T</div>
+                    <div class="cal-day-header">W</div>
+                    <div class="cal-day-header">T</div>
+                    <div class="cal-day-header">F</div>
+                    <div class="cal-day-header">S</div>
+                    <div class="cal-day-header">S</div>
+
+                    <!-- Days -->
+                    <div class="cal-day cal-empty"></div>
+                    <div class="cal-day cal-empty"></div>
+                    
+                    <div class="cal-day">1</div>
+                    <div class="cal-day">2</div>
+                    <div class="cal-day">3 <div class="event-dot"></div></div>
+                    <div class="cal-day">4</div>
+                    <div class="cal-day">5</div>
+                    <div class="cal-day">6</div>
+                    <div class="cal-day">7</div>
+                    
+                    <div class="cal-day">8</div>
+                    <div class="cal-day">9</div>
+                    <div class="cal-day">10</div>
+                    <div class="cal-day">11</div>
+                    <div class="cal-day">12 <div class="event-dot"></div></div>
+                    <div class="cal-day">13</div>
+                    <div class="cal-day">14</div>
+
+                    <div class="cal-day">15 <div class="event-dot"></div></div>
+                    <div class="cal-day">16</div>
+                    <div class="cal-day">17</div>
+                    <div class="cal-day">18</div>
+                    <div class="cal-day today">19</div>
+                    <div class="cal-day">20</div>
+                    <div class="cal-day">21</div>
+                    
+                    <div class="cal-day">22</div>
+                    <div class="cal-day">23 <div class="event-dot"></div></div>
+                    <div class="cal-day">24</div>
+                    <div class="cal-day">25 <div class="event-dot" style="background: red;"></div></div>
+                    <div class="cal-day">26</div>
+                    <div class="cal-day">27</div>
+                    <div class="cal-day">28</div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+        function setTheme(themeName) {
+            // Update HTML attribute
+            document.documentElement.setAttribute('data-theme', themeName);
+            
+            // Update button states
+            document.querySelectorAll('.theme-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
