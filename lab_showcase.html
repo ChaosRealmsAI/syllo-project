@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="minimal">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syllo Block Lab - Final Showcase</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+    <!-- THEME TOKENS (Consolidated) -->
+    <style>
+        :root { --transition-base: 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+
+        /* 1. MINIMAL (Default) */
+        [data-theme="minimal"] {
+            --bg-body: #ffffff; --bg-sidebar: #f9fafb; --bg-surface: #ffffff; --bg-surface-subtle: #f3f4f6;
+            --bg-accent: #2563eb; --text-main: #111827; --text-muted: #6b7280; --text-dim: #9ca3af; --text-on-accent: #fff;
+            --border-color: #e5e7eb; --border-width: 1px; --radius-md: 6px; --radius-lg: 10px;
+            --shadow-card: 0 1px 3px rgba(0,0,0,0.1); --font-main: 'Inter', sans-serif;
+        }
+
+        /* 2. GLASS */
+        [data-theme="glass"] {
+            --bg-body: #050505; --bg-sidebar: rgba(20,20,25,0.8); --bg-surface: rgba(30,30,35,0.6); --bg-surface-subtle: rgba(255,255,255,0.03);
+            --bg-accent: #6366f1; --text-main: rgba(255,255,255,0.95); --text-muted: rgba(255,255,255,0.6); --text-dim: rgba(255,255,255,0.4); --text-on-accent: #fff;
+            --border-color: rgba(255,255,255,0.1); --border-width: 1px; --radius-md: 10px; --radius-lg: 16px;
+            --shadow-card: 0 8px 32px rgba(0,0,0,0.5); --font-main: system-ui, sans-serif;
+            --backdrop: blur(20px) saturate(180%);
+        }
+
+        /* 3. BRUTALIST (EXTREME MAKEOVER) */
+        [data-theme="brutalist"] {
+            --bg-body: #FFDEE9; 
+            --bg-sidebar: #FFFF00; /* Brutal Yellow */
+            --bg-surface: #FFFFFF; 
+            --bg-surface-subtle: #FF99C8; /* Hot Pink Accent Background */
+            
+            --bg-accent: #000000; 
+            --text-main: #000000; 
+            --text-muted: #000000; 
+            --text-dim: #000000; 
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: #000000; 
+            --border-width: 3px; 
+            --radius-md: 0px; 
+            --radius-lg: 0px;
+            
+            --shadow-card: 6px 6px 0px #000000; 
+            --font-main: 'Space Grotesk', sans-serif;
+            
+            /* TRANSFORM BASE */
+            --transform-press: translate(2px, 2px);
+            --shadow-press: 0px 0px 0px #000000;
+        }
+        
+        /* BRUTALIST SPECIFIC OVERRIDES */
+        [data-theme="brutalist"] body {
+            background-image: radial-gradient(#000 20%, transparent 20%), radial-gradient(#000 20%, transparent 20%);
+            background-position: 0 0, 10px 10px;
+            background-size: 20px 20px;
+            background-color: #d4bfff; /* Funky Purple Base */
+        }
+        
+        [data-theme="brutalist"] .theme-card,
+        [data-theme="brutalist"] aside,
+        [data-theme="brutalist"] header {
+            box-shadow: 5px 5px 0px #000 !important;
+            border: 3px solid #000 !important;
+        }
+
+        /* Make sidebar buttons look like chunky blocks */
+        [data-theme="brutalist"] nav button {
+            border: 2px solid #000 !important;
+            margin-bottom: 8px;
+            background: #fff;
+            box-shadow: 3px 3px 0 #000;
+            text-transform: uppercase;
+            font-weight: 900;
+            letter-spacing: 1px;
+        }
+        [data-theme="brutalist"] nav button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 5px 5px 0 #000;
+            background: #FF00FF; /* Hot Magenta Hover */
+            color: white !important;
+        }
+        [data-theme="brutalist"] nav button.bg-surface {
+            background: #000 !important;
+            color: #fff !important;
+            box-shadow: none !important;
+            transform: translate(3px, 3px);
+        }
+
+        /* Force Uppercase Titles */
+        [data-theme="brutalist"] h1, 
+        [data-theme="brutalist"] h2, 
+        [data-theme="brutalist"] .font-medium {
+            text-transform: uppercase;
+            font-weight: 800 !important;
+            letter-spacing: 0.05em;
+        }
+
+        /* Tags become black boxes */
+        [data-theme="brutalist"] span[class*="bg-blue-100"],
+        [data-theme="brutalist"] span[class*="bg-orange-100"] {
+            background: #000 !important;
+            color: #fff !important;
+            border: none;
+            border-radius: 0;
+            font-weight: bold;
+            padding: 4px 8px;
+        }
+        
+        /* Avatars become squares */
+        [data-theme="brutalist"] img {
+            border-radius: 0 !important;
+            border: 2px solid #000 !important;
+            filter: grayscale(100%) contrast(120%);
+        }
+
+        /* 4. WIREFRAME (SKETCHY MAKEOVER) */
+        [data-theme="wireframe"] {
+            --bg-body: #ffffff;
+            --bg-sidebar: #f4f4f4;
+            --bg-surface: #ffffff;
+            --bg-surface-subtle: #fafafa;
+            
+            --bg-accent: #444;
+            --text-main: #222;
+            --text-muted: #666;
+            --text-dim: #999;
+            --text-on-accent: #fff;
+            
+            --border-color: #222;
+            --border-width: 2px;
+            
+            /* The secret sauce for sketchy look: weird border radius */
+            --radius-md: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            --radius-lg: 20px 225px 20px 225px / 225px 20px 225px 20px;
+            
+            --shadow-card: 2px 3px 0px rgba(0,0,0,0.1);
+            --font-main: 'Patrick Hand', cursive;
+        }
+
+        /* WIREFRAME SPECIFIC OVERRIDES */
+        [data-theme="wireframe"] body {
+            background-image: 
+                linear-gradient(#e0e0e0 1px, transparent 1px), 
+                linear-gradient(90deg, #e0e0e0 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-color: #fff;
+        }
+
+        [data-theme="wireframe"] .theme-card,
+        [data-theme="wireframe"] nav button,
+        [data-theme="wireframe"] header,
+        [data-theme="wireframe"] aside {
+            border: 2px solid #222 !important;
+            border-radius: var(--radius-md) !important;
+        }
+        
+        /* Make lines look wobbly */
+        [data-theme="wireframe"] hr,
+        [data-theme="wireframe"] .border-b,
+        [data-theme="wireframe"] .border-t,
+        [data-theme="wireframe"] .border-r,
+        [data-theme="wireframe"] .border-l {
+             border-color: #222 !important;
+             border-style: solid !important;
+        }
+
+        /* Global Styles */
+        body { font-family: var(--font-main); background: var(--bg-body); color: var(--text-main); transition: background var(--transition-base), color var(--transition-base); }
+        .glass-panel { background: var(--bg-surface); border: var(--border-width) solid var(--border-color); backdrop-filter: var(--backdrop, none); }
+        .theme-card { border-radius: var(--radius-lg); box-shadow: var(--shadow-card); border: var(--border-width) solid var(--border-color); background: var(--bg-surface); }
+        
+        /* Custom Inputs */
+        .toggle-checkbox:checked { right: 0; border-color: var(--bg-accent); }
+        .toggle-checkbox:checked + .toggle-label { background-color: var(--bg-accent); }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        background: 'var(--bg-body)',
+                        sidebar: 'var(--bg-sidebar)',
+                        surface: 'var(--bg-surface)',
+                        'surface-subtle': 'var(--bg-surface-subtle)',
+                        border: 'var(--border-color)',
+                        text: { main: 'var(--text-main)', muted: 'var(--text-muted)', dim: 'var(--text-dim)' },
+                        primary: { DEFAULT: 'var(--bg-accent)', fg: 'var(--text-on-accent)' }
+                    },
+                    borderWidth: { DEFAULT: 'var(--border-width)' },
+                    borderRadius: { md: 'var(--radius-md)', lg: 'var(--radius-lg)' }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="h-screen w-full flex overflow-hidden selection:bg-primary selection:text-primary-fg" x-data="lab()">
+
+    <!-- LEFT SIDEBAR -->
+    <aside class="w-64 bg-sidebar border-r border-border flex flex-col z-20 transition-colors duration-300">
+        <div class="h-14 flex items-center px-4 border-b border-border font-bold text-lg tracking-tight">
+            <div class="w-6 h-6 rounded-md bg-primary text-primary-fg flex items-center justify-center mr-2 shadow-sm">
+                <i class="ph-bold ph-lightning"></i>
+            </div>
+            Syllo Lab
+        </div>
+        
+        <nav class="flex-1 overflow-y-auto p-3 space-y-1">
+            <template x-for="block in blocks" :key="block.id">
+                <button @click="activeBlock = block.id"
+                    :class="activeBlock === block.id ? 'bg-surface shadow-sm text-text-main border border-border' : 'text-text-muted hover:bg-surface/50 hover:text-text-main border border-transparent'"
+                    class="w-full flex items-center gap-3 px-3 py-2 text-sm font-medium rounded-md transition-all">
+                    <i :class="block.icon" class="text-lg"></i>
+                    <span x-text="block.label"></span>
+                </button>
+            </template>
+        </nav>
+        
+        <div class="p-4 border-t border-border">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-blue-500 to-purple-500"></div>
+                <div class="flex-1 min-w-0">
+                    <div class="text-sm font-medium text-text-main truncate">Zhuanz</div>
+                    <div class="text-xs text-text-muted truncate">Pro Workspace</div>
+                </div>
+                <i class="ph ph-gear text-text-muted cursor-pointer hover:text-text-main"></i>
+            </div>
+        </div>
+    </aside>
+
+    <!-- CENTER CANVAS -->
+    <main class="flex-1 flex flex-col min-w-0 bg-background relative transition-colors duration-300">
+        <!-- Toolbar -->
+        <header class="h-14 border-b border-border glass-panel flex items-center justify-between px-6 z-10">
+            <div class="flex items-center gap-2 text-sm text-text-muted">
+                <span>Playground</span>
+                <i class="ph ph-caret-right text-xs"></i>
+                <span class="text-text-main font-medium" x-text="blocks.find(b => b.id === activeBlock).label"></span>
+            </div>
+            
+            <div class="flex items-center bg-surface-subtle rounded-md p-1 border border-border">
+                <button class="p-1.5 rounded hover:bg-surface text-text-muted hover:text-text-main transition-all"><i class="ph ph-desktop"></i></button>
+                <button class="p-1.5 rounded hover:bg-surface text-text-muted hover:text-text-main transition-all"><i class="ph ph-device-tablet"></i></button>
+                <button class="p-1.5 rounded hover:bg-surface text-text-muted hover:text-text-main transition-all"><i class="ph ph-device-mobile"></i></button>
+            </div>
+        </header>
+
+        <!-- Canvas Area -->
+        <div class="flex-1 overflow-auto bg-surface-subtle p-8 flex justify-center transition-colors duration-300">
+            <!-- The Component "Paper" -->
+            <div class="w-full max-w-3xl theme-card min-h-[500px] p-8 md:p-12 transition-all duration-300">
+                
+                <!-- CONTENT: KANBAN -->
+                <div x-show="activeBlock === 'kanban'" class="h-full flex flex-col">
+                    <div class="flex items-center justify-between mb-6">
+                        <h2 class="text-xl font-bold">Product Roadmap</h2>
+                        <div class="flex -space-x-2">
+                            <img class="w-6 h-6 rounded-full border-2 border-surface" src="https://i.pravatar.cc/100?img=1" alt="">
+                            <img class="w-6 h-6 rounded-full border-2 border-surface" src="https://i.pravatar.cc/100?img=2" alt="">
+                            <div class="w-6 h-6 rounded-full border-2 border-surface bg-surface-subtle flex items-center justify-center text-[10px] text-text-muted">+3</div>
+                        </div>
+                    </div>
+                    <div class="flex gap-4 overflow-x-auto pb-4">
+                        <!-- Col 1 -->
+                        <div class="w-64 flex-shrink-0 flex flex-col gap-3">
+                            <div class="text-xs font-semibold text-text-muted uppercase tracking-wider flex justify-between">Backlog <span>3</span></div>
+                            <div class="theme-card p-3 cursor-pointer hover:border-primary/50 transition-colors group">
+                                <div class="flex gap-2 mb-2">
+                                    <span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-300">Design</span>
+                                </div>
+                                <div class="text-sm font-medium mb-2">Refine typography scale</div>
+                                <div class="flex items-center justify-between text-xs text-text-dim">
+                                    <span>SYS-120</span>
+                                    <i class="ph ph-user-circle text-lg"></i>
+                                </div>
+                            </div>
+                            <div class="theme-card p-3 cursor-pointer hover:border-primary/50 transition-colors">
+                                <div class="text-sm font-medium mb-2">Mobile viewports check</div>
+                                <div class="flex items-center justify-between text-xs text-text-dim">
+                                    <span>SYS-123</span>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Col 2 -->
+                        <div class="w-64 flex-shrink-0 flex flex-col gap-3">
+                             <div class="text-xs font-semibold text-text-muted uppercase tracking-wider flex justify-between">In Progress <span>1</span></div>
+                             <div class="theme-card p-3 cursor-pointer border-l-4 border-l-primary">
+                                <div class="flex gap-2 mb-2">
+                                    <span class="px-1.5 py-0.5 rounded text-[10px] font-medium bg-orange-100 text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">High</span>
+                                </div>
+                                <div class="text-sm font-medium mb-2">Implement ThemeProvider</div>
+                                <div class="h-1 w-full bg-surface-subtle rounded-full overflow-hidden mt-2">
+                                    <div class="h-full bg-primary w-2/3"></div>
+                                </div>
+                            </div>
+                        </div>
+                         <!-- Col 3 -->
+                        <div class="w-64 flex-shrink-0 flex flex-col gap-3">
+                             <div class="text-xs font-semibold text-text-muted uppercase tracking-wider flex justify-between">Done <span>5</span></div>
+                             <div class="theme-card p-3 opacity-60">
+                                <div class="text-sm font-medium line-through">Setup Repo</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CONTENT: TASK -->
+                <div x-show="activeBlock === 'task'" class="space-y-1">
+                    <div class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-4">Today's Tasks</div>
+                    <template x-for="i in 5">
+                        <div class="flex items-center gap-3 p-2 rounded-md hover:bg-surface-subtle group transition-colors cursor-pointer">
+                            <div class="w-5 h-5 rounded border border-border flex items-center justify-center text-primary-fg" :class="i === 1 ? 'bg-primary border-primary' : 'bg-surface'">
+                                <i class="ph-bold ph-check" x-show="i === 1"></i>
+                            </div>
+                            <span class="text-sm flex-1" :class="i === 1 ? 'line-through text-text-muted' : 'text-text-main'">Complete the design system draft</span>
+                            <span class="text-xs px-1.5 py-0.5 rounded bg-surface border border-border text-text-dim opacity-0 group-hover:opacity-100 transition-opacity">P1</span>
+                        </div>
+                    </template>
+                     <div class="flex items-center gap-3 p-2 text-text-muted hover:text-primary cursor-pointer">
+                        <i class="ph ph-plus"></i>
+                        <span class="text-sm">Add new task...</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </main>
+
+    <!-- RIGHT INSPECTOR -->
+    <aside class="w-80 bg-sidebar border-l border-border flex flex-col z-20 shadow-xl">
+        <div class="h-14 flex items-center px-5 border-b border-border text-xs font-bold uppercase tracking-wider text-text-muted">
+            Properties
+        </div>
+        
+        <div class="flex-1 overflow-y-auto p-5 space-y-8">
+            <!-- Theme Selector -->
+            <div>
+                <label class="block text-xs font-semibold text-text-muted mb-3 uppercase">Theme Preset</label>
+                <div class="grid grid-cols-3 gap-2">
+                    <button @click="setTheme('minimal')" :class="theme==='minimal' ? 'ring-2 ring-primary border-transparent' : 'border-border hover:border-text-muted'" class="h-16 rounded-md bg-gray-50 border flex flex-col items-center justify-center gap-1 transition-all">
+                        <div class="w-4 h-4 rounded-full bg-white border border-gray-200"></div>
+                        <span class="text-[10px] text-gray-500">Minimal</span>
+                    </button>
+                    <button @click="setTheme('glass')" :class="theme==='glass' ? 'ring-2 ring-primary border-transparent' : 'border-border hover:border-text-muted'" class="h-16 rounded-md bg-gray-900 border flex flex-col items-center justify-center gap-1 transition-all">
+                        <div class="w-4 h-4 rounded-full bg-gray-800 border border-gray-700"></div>
+                        <span class="text-[10px] text-gray-400">Glass</span>
+                    </button>
+                    <button @click="setTheme('brutalist')" :class="theme==='brutalist' ? 'ring-2 ring-primary border-transparent' : 'border-border hover:border-text-muted'" class="h-16 rounded-md bg-blue-50 border flex flex-col items-center justify-center gap-1 transition-all">
+                        <div class="w-4 h-4 rounded-none bg-white border-2 border-black"></div>
+                        <span class="text-[10px] text-black font-bold">Brutal</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Toggles -->
+            <div>
+                <label class="block text-xs font-semibold text-text-muted mb-3 uppercase">Display Options</label>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-text-main">Show Avatars</span>
+                        <div class="relative inline-block w-10 h-6 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" checked class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer translate-x-1 top-1 transition-all duration-200 ease-in-out"/>
+                            <div class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer transition-colors"></div>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-sm text-text-main">Compact Mode</span>
+                        <div class="relative inline-block w-10 h-6 align-middle select-none transition duration-200 ease-in">
+                            <input type="checkbox" class="toggle-checkbox absolute block w-4 h-4 rounded-full bg-white border-4 border-gray-300 appearance-none cursor-pointer translate-x-1 top-1 transition-all duration-200 ease-in-out"/>
+                            <div class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer transition-colors"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Preview -->
+            <div>
+                 <div class="flex items-center justify-between mb-3">
+                    <label class="block text-xs font-semibold text-text-muted uppercase">JSON Data</label>
+                    <span class="text-[10px] text-primary cursor-pointer hover:underline">Copy</span>
+                 </div>
+                 <div class="bg-sidebar border border-border rounded-md p-3">
+<pre class="text-[10px] font-mono text-text-muted overflow-x-auto">
+{
+  "id": "blk_129",
+  "type": "kanban",
+  "theme": "minimal",
+  "data": {
+    "items": 3,
+    "columns": ["Todo", "Done"]
+  }
+}
+</pre>
+                 </div>
+            </div>
+
+        </div>
+    </aside>
+
+    <script>
+        function lab() {
+            return {
+                theme: 'minimal',
+                activeBlock: 'kanban',
+                blocks: [
+                    { id: 'kanban', label: 'Kanban Board', icon: 'ph-kanban' },
+                    { id: 'task', label: 'Task List', icon: 'ph-checks' },
+                    { id: 'text', label: 'Rich Text', icon: 'ph-text-t' },
+                    { id: 'table', label: 'Database', icon: 'ph-table' },
+                ],
+                setTheme(t) {
+                    this.theme = t;
+                    document.documentElement.setAttribute('data-theme', t);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

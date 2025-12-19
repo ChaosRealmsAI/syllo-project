@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Block Components - Theme Showcase</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Patrick+Hand&family=Crimson+Text:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         /* =========================================
            1. CSS VARIABLES & THEMES
@@ -284,6 +286,197 @@
             --pattern: none;
         }
 
+        /* --- THEME: LAVENDER (Soft/Dreamy) --- */
+        [data-theme="lavender"] {
+            --bg-body: #F3E8FF; /* Light Purple */
+            --bg-card: #FFFFFF;
+            --bg-element: #E9D5FF;
+            --bg-element-hover: #D8B4FE;
+            --bg-accent: #A855F7; /* Purple 500 */
+            
+            --text-main: #3B0764; /* Purple 950 */
+            --text-muted: #7E22CE;
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: #E9D5FF;
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 12px;
+            --radius-md: 8px;
+            --radius-sm: 4px;
+            
+            --shadow-card: 0 4px 6px -1px rgba(168, 85, 247, 0.1);
+            --shadow-hover: 0 10px 15px -3px rgba(168, 85, 247, 0.2);
+            
+            --font-main: "Nunito", sans-serif;
+            --font-mono: monospace;
+            
+            --pattern: none;
+        }
+
+        /* --- THEME: MIDNIGHT (Deep Blue/Gold) --- */
+        [data-theme="midnight"] {
+            --bg-body: #011627; /* Night Owl Background */
+            --bg-card: #0b2942;
+            --bg-element: #1d3b53;
+            --bg-element-hover: #234d6e;
+            --bg-accent: #ecc41d; /* Gold */
+            
+            --text-main: #d6deeb;
+            --text-muted: #7fdbca; /* Cyan Muted */
+            --text-on-accent: #011627;
+            
+            --border-color: #5f7e97;
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 4px;
+            --radius-md: 4px;
+            --radius-sm: 2px;
+            
+            --shadow-card: 0 4px 6px rgba(0,0,0,0.3);
+            --shadow-hover: 0 8px 12px rgba(0,0,0,0.5);
+            
+            --font-main: "Fira Sans", sans-serif;
+            --font-mono: "Fira Code", monospace;
+            
+            --pattern: none;
+        }
+
+        /* --- THEME: WIREFRAME (Sketch) --- */
+        [data-theme="wireframe"] {
+            --bg-body: #ffffff;
+            --bg-card: #ffffff;
+            --bg-element: #f0f0f0;
+            --bg-element-hover: #e0e0e0;
+            --bg-accent: #333333;
+            
+            --text-main: #333333;
+            --text-muted: #666666;
+            --text-on-accent: #ffffff;
+            
+            --border-color: #333333;
+            --border-width: 2px;
+            --border-style: solid;
+            
+            --radius-lg: 255px 15px 225px 15px / 15px 225px 15px 255px; /* Messy radius */
+            --radius-md: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            --radius-sm: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            
+            --shadow-card: 2px 3px 0px rgba(0,0,0,0.1);
+            --shadow-hover: 3px 4px 0px rgba(0,0,0,0.2);
+            
+            --font-main: "Patrick Hand", "Comic Sans MS", cursive;
+            --font-mono: monospace;
+            
+            /* Grid Paper Pattern */
+            --pattern: linear-gradient(#e5e5e5 1px, transparent 1px), linear-gradient(90deg, #e5e5e5 1px, transparent 1px);
+            --pattern-size: 20px 20px;
+        }
+        
+        /* Wireframe Extreme Overrides */
+        [data-theme="wireframe"] .block-card,
+        [data-theme="wireframe"] .theme-select {
+             border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px !important;
+             border: 2px solid #333 !important;
+        }
+        [data-theme="wireframe"] hr,
+        [data-theme="wireframe"] th,
+        [data-theme="wireframe"] td,
+        [data-theme="wireframe"] .checkbox, 
+        [data-theme="wireframe"] .kanban-col {
+             border-color: #333 !important;
+        }
+
+        /* --- THEME: FOCUS (Zen Mode) --- */
+        [data-theme="focus"] {
+            --bg-body: #1a1a1a;
+            --bg-card: #1a1a1a; /* Blend with body */
+            --bg-element: #262626;
+            --bg-element-hover: #333333;
+            --bg-accent: #ffffff; /* Stark White */
+            
+            --text-main: #d4d4d4;
+            --text-muted: #737373;
+            --text-on-accent: #000000;
+            
+            --border-color: #404040;
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 0px;
+            --radius-md: 0px;
+            --radius-sm: 0px;
+            
+            --shadow-card: none;
+            --shadow-hover: 0 0 0 1px #ffffff; /* Only show bounds on hover */
+            
+            --font-main: "Inter", sans-serif;
+            --font-mono: monospace;
+            
+            --pattern: none;
+        }
+
+        /* --- THEME: PAPER (Old Book) --- */
+        [data-theme="paper"] {
+            --bg-body: #fdf6e3; /* Solarized Light Base */
+            --bg-card: #eee8d5;
+            --bg-element: #e6dfc8;
+            --bg-element-hover: #d3cbb1;
+            --bg-accent: #b58900; /* Yellow/Gold Ink */
+            
+            --text-main: #433422; /* Dark Brown */
+            --text-muted: #83725d;
+            --text-on-accent: #fff;
+            
+            --border-color: #d6cfbc;
+            --border-width: 1px;
+            --border-style: solid;
+            
+            --radius-lg: 2px;
+            --radius-md: 2px;
+            --radius-sm: 2px;
+            
+            --shadow-card: 1px 1px 3px rgba(0,0,0,0.1);
+            --shadow-hover: 2px 2px 5px rgba(0,0,0,0.15);
+            
+            --font-main: "Crimson Text", "Garamond", serif;
+            --font-mono: "Courier New", monospace;
+            
+            /* Paper Texture */
+            --pattern: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+        }
+
+        /* --- THEME: NATURE (Forest) --- */
+        [data-theme="nature"] {
+            --bg-body: #F0F4F1; /* Mist */
+            --bg-card: #FFFFFF;
+            --bg-element: #E2E8E4;
+            --bg-element-hover: #D1DAD5;
+            --bg-accent: #4A7c59; /* Forest Green */
+            
+            --text-main: #2C3E2D; /* Deep Green-Grey */
+            --text-muted: #6B816D;
+            --text-on-accent: #FFFFFF;
+            
+            --border-color: #E2E8E4;
+            --border-width: 0px;
+            --border-style: solid;
+            
+            --radius-lg: 24px; /* Organic shapes */
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            
+            --shadow-card: 0 10px 30px -10px rgba(74, 124, 89, 0.15);
+            --shadow-hover: 0 20px 40px -10px rgba(74, 124, 89, 0.25);
+            
+            --font-main: "DM Sans", sans-serif;
+            --font-mono: monospace;
+            
+            --pattern: none;
+        }
+
         /* =========================================
            2. GLOBAL STYLES
            ========================================= */
@@ -354,6 +547,42 @@
             background: #000;
             color: #fff;
             box-shadow: 2px 2px 0 #fff;
+        }
+
+        /* --- Theme Select --- */
+        .theme-select {
+            padding: 0.5rem 2rem 0.5rem 1rem;
+            font-size: 0.9rem;
+            font-family: var(--font-main);
+            color: var(--text-main);
+            background-color: var(--bg-card);
+            border: var(--border-width) var(--border-style) var(--border-color);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.75rem center;
+            background-size: 10px;
+            box-shadow: var(--shadow-card);
+        }
+        
+        /* Fix icon color for dark themes via filter */
+        [data-theme="glass"] .theme-select,
+        [data-theme="terminal"] .theme-select, 
+        [data-theme="midnight"] .theme-select,
+        [data-theme="focus"] .theme-select {
+            filter: invert(1) hue-rotate(180deg);
+        }
+        /* Reset filter for background/border but apply to icon text? CSS filters are tricky on selects. 
+           Simplifying: Just trust the system text color inheritance above.
+        */
+        [data-theme="glass"] .theme-select,
+        [data-theme="terminal"] .theme-select, 
+        [data-theme="midnight"] .theme-select,
+        [data-theme="focus"] .theme-select {
+             filter: none; /* Reverting filter attempt, text color inheritance usually works */
         }
 
         /* --- Layout --- */
@@ -491,7 +720,84 @@
             color: var(--text-muted);
             border: 1px solid transparent;
         }
-        [data-theme="brutalist"] .badge { border: 2px solid #000; font-weight: bold; background: #fff; color: #000; }
+        [data-theme="brutalist"] .badge {
+            background: #000 !important;
+            color: #fff !important;
+            border: none;
+            text-transform: uppercase;
+            font-weight: bold;
+            border-radius: 0;
+        }
+
+        /* --- GLASS OVERRIDES (Frost & Glow) --- */
+        [data-theme="glass"] .block-card,
+        [data-theme="glass"] .kanban-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+        }
+        [data-theme="glass"] h1, [data-theme="glass"] h2 {
+            text-shadow: 0 0 20px rgba(255,255,255,0.3);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+        [data-theme="glass"] .kanban-col { background: transparent; border: 1px dashed rgba(255,255,255,0.1); }
+        
+        /* --- TERMINAL OVERRIDES (Retro Tech) --- */
+        [data-theme="terminal"] .block-card,
+        [data-theme="terminal"] .task-item,
+        [data-theme="terminal"] .kanban-card {
+            border: 1px solid #00FF00;
+            box-shadow: 0 0 5px rgba(0, 255, 0, 0.1);
+            background: #000;
+        }
+        [data-theme="terminal"] h1::before,
+        [data-theme="terminal"] h2::before { content: "> "; color: #00FF00; margin-right: 5px; }
+        [data-theme="terminal"] h1::after {
+            content: "_";
+            animation: blink 1s step-end infinite;
+        }
+        @keyframes blink { 50% { opacity: 0; } }
+        
+        /* --- PAPER/NEWSPAPER OVERRIDES (Editorial) --- */
+        [data-theme="paper"] .block-card, 
+        [data-theme="newspaper"] .block-card {
+            box-shadow: 1px 1px 2px rgba(0,0,0,0.05), 
+                        10px 10px 0 -3px rgba(0,0,0,0.02); /* Stacked paper effect */
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+        [data-theme="newspaper"] h1 {
+            font-family: "Georgia", serif;
+            border-bottom: 3px double #000;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        [data-theme="newspaper"] th {
+            border-bottom: 3px double #000;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        /* --- SYNTHWAVE OVERRIDES (Neon Grid) --- */
+        [data-theme="synthwave"] h1, 
+        [data-theme="synthwave"] h2 {
+            text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff;
+            font-style: italic;
+        }
+        [data-theme="synthwave"] .block-card {
+            background: rgba(30, 20, 50, 0.8);
+            border: 1px solid #00f3ff;
+            box-shadow: 0 0 10px rgba(0, 243, 255, 0.2), inset 0 0 20px rgba(0,0,0,0.5);
+        }
+        [data-theme="synthwave"] .badge {
+            border: 1px solid #ff00ff;
+            background: transparent;
+            color: #ff00ff;
+            box-shadow: 0 0 5px #ff00ff;
+        }
 
         .badge.p0 { color: #ef4444; background: rgba(239,68,68,0.1); }
         .badge.p1 { color: #eab308; background: rgba(234,179,8,0.1); }
@@ -645,16 +951,37 @@
 </head>
 <body>
 
-    <header style="flex-wrap: wrap;">
-        <button class="theme-btn active" onclick="setTheme('minimal')">Minimal</button>
-        <button class="theme-btn" onclick="setTheme('glass')">Glass</button>
-        <button class="theme-btn" onclick="setTheme('brutalist')">Brutalist</button>
-        <button class="theme-btn" onclick="setTheme('playful')">Playful</button>
-        <button class="theme-btn" onclick="setTheme('high-contrast')">Contrast</button>
-        <button class="theme-btn" onclick="setTheme('terminal')">Terminal</button>
-        <button class="theme-btn" onclick="setTheme('synthwave')">Synthwave</button>
-        <button class="theme-btn" onclick="setTheme('newspaper')">Newspaper</button>
-        <button class="theme-btn" onclick="setTheme('nordic')">Nordic</button>
+    <header>
+        <div class="theme-selector-wrapper">
+            <label for="theme-select" style="font-size: 0.8rem; font-weight: 600; color: var(--text-muted); margin-right: 0.5rem;">THEME:</label>
+            <select id="theme-select" onchange="setTheme(this.value)" class="theme-select">
+                <optgroup label="Core">
+                    <option value="minimal" selected>Minimal (Light)</option>
+                    <option value="glass">Glass (Dark)</option>
+                    <option value="brutalist">Brutalist</option>
+                </optgroup>
+                <optgroup label="Creative">
+                    <option value="playful">Playful (Retro)</option>
+                    <option value="wireframe">Wireframe (Sketch)</option>
+                    <option value="lavender">Lavender (Dreamy)</option>
+                    <option value="synthwave">Synthwave (Neon)</option>
+                </optgroup>
+                <optgroup label="Editorial & Reading">
+                    <option value="paper">Paper (Warm)</option>
+                    <option value="newspaper">Newspaper (Serif)</option>
+                    <option value="focus">Focus (Zen)</option>
+                    <option value="high-contrast">High Contrast</option>
+                </optgroup>
+                <optgroup label="Coding & Dark">
+                    <option value="midnight">Midnight (Deep)</option>
+                    <option value="terminal">Terminal (Hacker)</option>
+                </optgroup>
+                <optgroup label="Nature">
+                    <option value="nature">Nature (Forest)</option>
+                    <option value="nordic">Nordic (Ice)</option>
+                </optgroup>
+            </select>
+        </div>
     </header>
 
     <main>

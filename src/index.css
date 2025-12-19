@@ -38,3 +38,10 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--text-muted);
 }
+
+/* Page Layout: 响应式 - 移动端 Block 自动占满 */
+@media (max-width: 768px) {
+  .page-row > * {
+    grid-column: span 12 !important;
+  }
+}
