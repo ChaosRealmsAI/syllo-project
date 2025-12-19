@@ -57,6 +57,12 @@ export function KanbanBlock({ config, data, onDataChange }: BlockProps<KanbanCon
                 {editingCard === card.id ? (
                   <input
                     type="text"
+                    ref={(el) => {
+                      if (el) {
+                        el.focus()
+                        el.setSelectionRange(el.value.length, el.value.length)
+                      }
+                    }}
                     value={card.title}
                     onChange={(e) => updateCardTitle(column.id, card.id, e.target.value)}
                     onBlur={() => setEditingCard(null)}
@@ -64,7 +70,6 @@ export function KanbanBlock({ config, data, onDataChange }: BlockProps<KanbanCon
                       if (e.key === 'Enter') setEditingCard(null)
                       if (e.key === 'Escape') setEditingCard(null)
                     }}
-                    autoFocus
                     className="w-full bg-transparent border border-accent rounded px-2 py-0.5 text-sm focus:outline-none text-text-main"
                   />
                 ) : (

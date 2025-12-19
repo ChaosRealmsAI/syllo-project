@@ -24,6 +24,12 @@ export function TextBlock({ config, data, onDataChange }: BlockProps<TextConfig,
     if (isEditing) {
       return (
         <textarea
+          ref={(el) => {
+            if (el) {
+              el.focus()
+              el.setSelectionRange(el.value.length, el.value.length)
+            }
+          }}
           value={value}
           onChange={(e) => handleChange(field, e.target.value)}
           onBlur={() => setEditingField(null)}
@@ -33,7 +39,6 @@ export function TextBlock({ config, data, onDataChange }: BlockProps<TextConfig,
               setEditingField(null)
             }
           }}
-          autoFocus
           className={`w-full bg-transparent border border-accent rounded px-2 py-1 resize-none focus:outline-none ${className}`}
           rows={Component === 'p' ? 3 : 1}
         />

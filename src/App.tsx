@@ -96,7 +96,7 @@ export default function App() {
               Config
             </div>
             <div className="space-y-3">
-              {Object.entries(currentConfig as Record<string, unknown>).map(([key, value]) => (
+              {Object.entries(currentConfig as unknown as Record<string, unknown>).map(([key, value]) => (
                 <label key={key} className="flex items-center justify-between">
                   <span className="text-sm text-text-main">{key}</span>
                   {typeof value === 'boolean' ? (

@@ -36,6 +36,12 @@ export function TableBlock({ config, data, onDataChange }: BlockProps<TableConfi
       return (
         <input
           type="text"
+          ref={(el) => {
+            if (el) {
+              el.focus()
+              el.setSelectionRange(el.value.length, el.value.length)
+            }
+          }}
           value={value}
           onChange={(e) => updateCell(rowId, field, e.target.value)}
           onBlur={() => setEditingCell(null)}
@@ -43,7 +49,6 @@ export function TableBlock({ config, data, onDataChange }: BlockProps<TableConfi
             if (e.key === 'Enter') setEditingCell(null)
             if (e.key === 'Escape') setEditingCell(null)
           }}
-          autoFocus
           className={`w-full bg-transparent border border-accent rounded px-2 py-0.5 focus:outline-none ${className}`}
         />
       )

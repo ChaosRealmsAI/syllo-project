@@ -1,79 +1,70 @@
 /* =========================================
-   THEME: GLASSMORPHISM DARK (Apple/Arc)
+   THEME: GLASS DARK (Modern Frost 2.0)
    ========================================= */
 
 [data-theme="glass"] {
-  /* Colors - Background */
-  --bg-body: #000000;
-  --bg-card: rgba(30, 30, 40, 0.65);
-  --bg-element: rgba(255, 255, 255, 0.08);
-  --bg-element-hover: rgba(255, 255, 255, 0.15);
-  --bg-accent: rgba(99, 102, 241, 0.8);
-
-  /* Colors - Text */
-  --text-main: #FFFFFF;
+  /* Colors - Background (Deep Space) */
+  --bg-body: #050505;
+  --bg-card: rgba(30, 30, 35, 0.6);
+  --bg-element: rgba(255, 255, 255, 0.06);
+  --bg-element-hover: rgba(255, 255, 255, 0.12);
+  --bg-accent: #6366f1; /* Indigo-500 */
+  --bg-surface: rgba(20, 20, 25, 0.7);
+  
+  /* Colors - Text (Glow) */
+  --text-main: rgba(255, 255, 255, 0.95);
   --text-muted: rgba(255, 255, 255, 0.6);
-  --text-on-accent: #FFFFFF;
+  --text-dim: rgba(255, 255, 255, 0.4);
+  --text-on-accent: #ffffff;
 
-  /* Border */
-  --border-color: rgba(255, 255, 255, 0.12);
+  /* Border (Subtle Rim Light) */
+  --border-color: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.15);
   --border-width: 1px;
+  --border-style: solid;
 
-  /* Radius */
-  --radius-lg: 20px;
-  --radius-md: 12px;
-  --radius-sm: 8px;
+  /* Radius (Smooth continuous curves) */
+  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --radius-full: 9999px;
 
-  /* Shadow */
-  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  --shadow-hover: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+  /* Shadow (Neon glow) */
+  --shadow-sm: 0 0 0 1px rgba(0,0,0,1); /* Inner border for depth */
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.5); /* Heavy drop shadow */
+  --shadow-hover: 0 8px 32px 0 rgba(99, 102, 241, 0.15); /* Indigo glow */
   --shadow-focus: 0 0 0 2px rgba(99, 102, 241, 0.5);
 
   /* Typography */
   --font-main: -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: monospace;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
+  
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 600;
 
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
+  /* Animation */
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
 
-  /* Transition */
-  --transition-fast: 0.15s ease;
-  --transition-base: 0.3s ease;
-  --transition-slow: 0.5s ease;
-
-  /* Glass Effect */
-  --backdrop-filter: blur(20px) saturate(180%);
-
-  /* Z-Index */
-  --z-dropdown: 100;
-  --z-modal: 200;
-  --z-toast: 300;
+  /* Glass Specific */
+  --backdrop-blur: blur(24px);
+  --backdrop-saturate: saturate(180%);
 }
 
-/* Glass background gradient */
-[data-theme="glass"] body::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 10% 20%, rgba(90, 34, 139, 0.4) 0%, transparent 40%),
-    radial-gradient(circle at 90% 80%, rgba(0, 100, 200, 0.4) 0%, transparent 40%);
+/* Aurora Gradient Background */
+[data-theme="glass"] body {
+  background-color: #000;
+  background-image: 
+    radial-gradient(at 0% 0%, hsla(253,16%,7%,1) 0, transparent 50%), 
+    radial-gradient(at 50% 0%, hsla(225,39%,30%,1) 0, transparent 50%), 
+    radial-gradient(at 100% 0%, hsla(339,49%,30%,1) 0, transparent 50%);
+  background-attachment: fixed;
+  background-size: cover;
 }
 
-/* Glass card effect */
-[data-theme="glass"] .glass-card {
-  backdrop-filter: var(--backdrop-filter);
-  -webkit-backdrop-filter: var(--backdrop-filter);
+[data-theme="glass"] .bg-card {
+  backdrop-filter: var(--backdrop-blur) var(--backdrop-saturate);
+  -webkit-backdrop-filter: var(--backdrop-blur) var(--backdrop-saturate);
+  border-top: 1px solid rgba(255,255,255,0.1); /* Top light highlight */
 }

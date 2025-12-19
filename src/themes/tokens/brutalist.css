@@ -1,71 +1,56 @@
 /* =========================================
-   THEME: BRUTALIST (Neo-Brutalism)
+   THEME: NEO-BRUTALISM (Bold & Artsy 2.0)
    ========================================= */
 
 [data-theme="brutalist"] {
-  /* Colors - Background */
-  --bg-body: #FFDEE9;
-  --bg-card: #FFFFFF;
-  --bg-element: #FFFF00;
-  --bg-element-hover: #00FF00;
-  --bg-accent: #000000;
-
-  /* Colors - Text */
+  /* Colors - Background (Vibrant) */
+  --bg-body: #e0f2fe;          /* Light Sky Blue */
+  --bg-card: #ffffff;
+  --bg-element: #fdba74;       /* Orange-300 */
+  --bg-element-hover: #fb923c; /* Orange-400 */
+  --bg-accent: #000000;        /* Pure Black Accent */
+  --bg-surface: #ffffff;
+  
+  /* Colors - Text (High Contrast) */
   --text-main: #000000;
-  --text-muted: #000000;
-  --text-on-accent: #FFFFFF;
+  --text-muted: #1f2937;
+  --text-dim: #374151;
+  --text-on-accent: #ffffff;
 
-  /* Border */
+  /* Border (Hard & Thick) */
   --border-color: #000000;
+  --border-strong: #000000;
   --border-width: 3px;
+  --border-style: solid;
 
-  /* Radius */
+  /* Radius (None or slightly rounded for comfort) */
   --radius-lg: 0px;
   --radius-md: 0px;
   --radius-sm: 0px;
+  --radius-full: 9999px;
 
-  /* Shadow */
-  --shadow-card: 6px 6px 0px #000000;
-  --shadow-hover: 2px 2px 0px #000000;
+  /* Shadow (Hard offset) */
+  --shadow-sm: 2px 2px 0px #000000;
+  --shadow-card: 5px 5px 0px #000000;
+  --shadow-hover: 2px 2px 0px #000000; /* Press effect: shadow shrinks */
   --shadow-focus: 4px 4px 0px #000000;
 
   /* Typography */
-  --font-main: "Courier New", Courier, monospace;
-  --font-mono: "Courier New", Courier, monospace;
-  --font-size-xs: 0.75rem;
-  --font-size-sm: 0.875rem;
-  --font-size-base: 1rem;
-  --font-size-lg: 1.125rem;
-  --font-size-xl: 1.25rem;
-  --font-size-2xl: 1.5rem;
+  --font-main: 'Space Grotesk', 'Archivo Black', sans-serif; /* Geometric */
+  --font-mono: 'Space Mono', monospace;
+  
+  --font-weight-normal: 500; /* Bolder base */
+  --font-weight-medium: 700;
+  --font-weight-bold: 900;
 
-  /* Spacing */
-  --space-1: 0.25rem;
-  --space-2: 0.5rem;
-  --space-3: 0.75rem;
-  --space-4: 1rem;
-  --space-6: 1.5rem;
-  --space-8: 2rem;
-
-  /* Transition */
-  --transition-fast: 0.1s ease;
-  --transition-base: 0.15s ease;
-  --transition-slow: 0.3s ease;
-
-  /* Z-Index */
-  --z-dropdown: 100;
-  --z-modal: 200;
-  --z-toast: 300;
+  /* Animation (Snappy) */
+  --transition-fast: 0.1s steps(1); /* No fade, just snap */
+  --transition-base: 0.15s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Brutalist dot pattern */
+/* Halftone Pattern */
 [data-theme="brutalist"] body {
-  background-image: radial-gradient(#000 1px, transparent 1px);
-  background-size: 20px 20px;
-}
-
-/* Brutalist hover effects */
-[data-theme="brutalist"] .brutalist-press:active {
-  transform: translate(2px, 2px);
-  box-shadow: var(--shadow-hover);
+  background-color: var(--bg-body);
+  background-image: radial-gradient(circle, #000000 1px, transparent 1px);
+  background-size: 24px 24px;
 }
